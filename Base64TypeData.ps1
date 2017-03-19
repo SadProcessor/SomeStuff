@@ -21,10 +21,3 @@ Update-TypeData -TypeName System.String -MemberName "ToFile" -MemberType ScriptP
 
 ## To remove:
 ## Remove-TypeData -TypeName System.String
-
-
-# Where is my #Powershell Calc?
-#IEx((help -?).synopsis.split(" ")[4]+(".{0}X{0} -{0}NC "-F"E")+(("Qw"+"Bh"),"Gw","Yw","="-join"A"))
-
-123123123 -and 123456789
-
