@@ -362,7 +362,7 @@ Function Invoke-CheeseOnToast{
         # default display set
         $defaultDisplaySet = 'Target','MS','Risk'
         # default property display set
-        $defaultDisplayPropertySet = New-Object System.Management.Automation.PSPropertySet(‘DefaultDisplayPropertySet’,[string[]]$defaultDisplaySet)
+        $defaultDisplayPropertySet = New-Object System.Management.Automation.PSPropertySet("DefaultDisplayPropertySet",[string[]]$defaultDisplaySet)
         $PSStandardMembers = [System.Management.Automation.PSMemberInfo[]]@($defaultDisplayPropertySet)
         #Give Result typename
         $Result.PSObject.TypeNames.Insert(0,'Test.Result')
