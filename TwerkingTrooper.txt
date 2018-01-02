@@ -2,7 +2,7 @@
 ##### KALI-i3wm-RECIPE ######
 ## TwerkingTrooper Edition ##
 #############################
-# Kali 2017.03OS
+# Kali 2017.03
 # i3wm (topping xfce base) (really awesome for cmdline kungFu)
 # ZeroTouch install (for VMs)
 # Customizable Tool List
