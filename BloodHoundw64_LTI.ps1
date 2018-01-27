@@ -11,7 +11,7 @@
    Lite Touch Install (Donut not included)
    
    Can specify alternate install location. (Default: '~/Desktop')
-   Can specify versions to intall. (Default: Neo=3.3.2/BH=1.4)
+   Can specify versions to intall. (Default: Neo=3.3.2/BH=BloodHound-Rolling)
    Switch to include sample DB.(Default: no DB)
    
    Script Creates BloodHound folder in specified location 
