@@ -215,7 +215,7 @@ Function Stop-BloodHound{
 
     # If Sample DB
     if($IncludeSampleDB){
-        Write-Host "[-] Revomving DB Upgrade from Conf" -ForegroundColor Green
+        Write-Host "[-] Removing DB Upgrade from Conf" -ForegroundColor Green
         # Remove DB Upgrade from conf
         $Config = "$Folder\Neo4j\*\conf\neo4j.conf"
         $old = "dbms.allow_upgrade=true"
