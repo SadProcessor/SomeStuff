@@ -1,5 +1,5 @@
-﻿###########################################################
-##  CypherDog - PoSh BloodHoundDog Dog Whisperer Module  ##
+###########################################################
+##    CypherDog - PoSh BloodHound Dog Whisperer Module   ##
 ###########################################################
 
 
@@ -35,7 +35,7 @@ $CypherDog = New-Object PSCustomObject -Property @{
     UserList=$Null
     GroupList=$Null
     ComputerList=$Null
-    DomainList=$List
+    DomainList=$Null
     }
 
 
