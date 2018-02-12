@@ -285,6 +285,7 @@ Function ClipThis{
     if($Params.count){$Params.keys|%{$Query=$Query.replace("{$_}","'$($Params.$_)'")}}
     Write-Verbose "$Query"
     $Query | Set-ClipBoard
+    Return $Query
     }
 #End
 
