@@ -1906,7 +1906,7 @@ function BloodHound-PathCypher{
                 }
             if($DynReverse.IsSet){$FWD=$Null;$Rew='<'}
             else{$FWD='>';$Rew=$Null}
-            $Result = "MATCH`r`n(A:$SrcType {name: '$Src'}),`r`n(B:$TgtType {name: '$Tgt'}),`r`nP=$PT((A)$REW-[r$EdgeString*1..$MH]-$FWD(B))`r`nRETURN P"
+            $Result = "MATCH`r`n(A:$SrcType {name: '$Src'}),`r`n(B:$TgtType {name: '$Tgt'}),`r`nP=$PT((A)$REW-[r$EdgeString*1..$MH]-$FWD(B))`r`nRETURN P".replace('|:*','*')
             if(-Not$PT){
                 $Result = $Result.replace('((A)','(A)').replace('(B))','(B)')
                 $Result = $result -replace "RETURN P","WITH P,`r`ncount(r) as rCount order by rCount desc LIMIT 10`r`nRETURN P"}
