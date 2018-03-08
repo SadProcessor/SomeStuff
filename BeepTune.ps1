@@ -20,7 +20,7 @@
 function Invoke-BeepTune{
     [Alias('BeepTune')]
     Param(
-        # Select Tune -> Vador/Sergei/Rick/Mario/Tom
+        # Select Tune -> Vador/Vladimir/Rick/Mario/Tom
         [ValidateSet('Vador','Vladimir','Rick','Mario','Tom')]
         [Parameter(Mandatory=$False,Position=0)][String]$Tune='Vador',
         # Switch Endless Loop -> True/False
@@ -52,7 +52,7 @@ function Invoke-BeepTune{
         [console]::beep(523,150)
         [console]::beep(440,1000)
         }
-    ## Sergei
+    ## Vladimir
     function Vladimir{
         [console]::beep(1320,500)
         [console]::beep(990,250)
