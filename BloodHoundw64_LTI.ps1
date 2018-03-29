@@ -6,12 +6,10 @@
 .Synopsis
    BloodHound LTI win64
 .DESCRIPTION
-   LTI?? Lazy that is... Donut Style.
-   But still requires some interaction so don't walk away. 
    Lite Touch Install (Donut not included)
    
    Can specify alternate install location. (Default: '~/Desktop')
-   Can specify versions to intall. (Default: Neo=3.3.2/BH=1.4)
+   Can specify versions to intall. (Default: Neo=3.3.2/BH=1.5.1)
    Switch to include sample DB.(Default: no DB)
    
    Script Creates BloodHound folder in specified location 
@@ -33,7 +31,7 @@
 .EXAMPLE
    Install-BloodHound -BHVersion 'BloodHound-Rolling'
    Specify BloodHound version to install
-   Defaults to v1.4
+   Defaults to v1.5.1
 .EXAMPLE
    Install-BloodHound -Neo4jVersion '3.2.9'
    Specify Neo4j version to install
