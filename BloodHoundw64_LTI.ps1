@@ -9,7 +9,7 @@
    Lite Touch Install (Donut not included)
    
    Can specify alternate install location. (Default: '~/Desktop')
-   Can specify versions to intall. (Default: Neo=3.3.2/BH=1.5.1)
+   Can specify versions to intall. (Default: Neo=3.3.2/BH=2.0.4)
    Switch to include sample DB.(Default: no DB)
    
    Script Creates BloodHound folder in specified location 
@@ -19,7 +19,7 @@
    
    Requires Admin (will check)
    Requires Java 64bit (will check)
-   Requires user interaction (will wait)
+   Requires user interaction (will wait) or not (quiet mode)
    Stops on Errors
    
 .EXAMPLE
@@ -31,7 +31,7 @@
 .EXAMPLE
    Install-BloodHound -BHVersion 'BloodHound-Rolling'
    Specify BloodHound version to install
-   Defaults to v1.5.1
+   Defaults to v2.0.4
 .EXAMPLE
    Install-BloodHound -Neo4jVersion '3.2.9'
    Specify Neo4j version to install
@@ -39,6 +39,10 @@
 .EXAMPLE
    Install-BloodHound -IncludeSampleDB
    Switch to include BloodHound Sample DB
+.EXAMPLE
+   Install-BloodHound -quiet neo4j2019
+   Switch to install without user interaction with the specified password
+   Defauts to neo4j2019
 #>
 Function Install-BloodHound{
     [CmdletBinding()]
@@ -52,7 +56,9 @@ Function Install-BloodHound{
         # Specify Install Path
         [Parameter(Mandatory=0)][String]$Location='~/Desktop',
         # Include Sample Database
-        [Parameter(Mandatory=0)][Switch]$IncludeSampleDB
+        [Parameter(Mandatory=0)][Switch]$IncludeSampleDB,
+        # Install without user interaction with the specified password 
+        [Parameter(Mandatory=0)][String]$quiet='neo4j2019'
         )
 
     ## Checks
@@ -223,40 +229,52 @@ Function Stop-BloodHound{
         }
 
     ## Set Password
-    # Go to Browser
     Write-Host "[+] Opening neo4j Browser..."            -ForegroundColor Green
-    Write-Host "[I] Can take a while. It's Ok. Relax..." -ForegroundColor Green
-    start-Process "$NeoURL"
-    # Default Password to clipboard
-    Write-Host "[+] Setting Clipboard: neo4j"     -ForegroundColor Green
-    Set-Clipboard 'neo4j'
-    # Show Intructions
-    Write-Host "[>] 1 - Paste Clipboard in Password field" -ForegroundColor Yellow
-    Write-Host "[>] 2 - Click [Connect]"               -ForegroundColor Yellow
-    Write-Host "[>] 3 - Choose New Password"           -ForegroundColor Yellow
-    Write-Host "[>] 4 - Click [Change Password]"       -ForegroundColor Yellow
-    Write-Host "[>] 5 - Close Browser"                -ForegroundColor Yellow
-    # Ask if done
-    if((Read-Host "Press [ENTER] when done") -ne ''){Return}
-
+    Write-Host "[I] Can take a while. It's Ok. Relax..." -ForegroundColor Green    
+	if($quiet){
+		Write-Host "[+] Set an initial password for the native user neo4j"     -ForegroundColor Green
+		Invoke-Neo4jAdmin -CommandArgs "set-initial-password $($quiet)"
+		Write-Host "[+] Setting password : $quiet"     -ForegroundColor Green
+	}
+	else{
+        # Go to Browser
+		start-Process "$NeoURL"
+		# Default Password to clipboard
+		Write-Host "[+] Setting Clipboard: neo4j"     -ForegroundColor Green
+		Set-Clipboard 'neo4j'
+		# Show Intructions
+		Write-Host "[>] 1 - Paste Clipboard in Password field" -ForegroundColor Yellow
+		Write-Host "[>] 2 - Click [Connect]"               -ForegroundColor Yellow
+		Write-Host "[>] 3 - Choose New Password"           -ForegroundColor Yellow
+		Write-Host "[>] 4 - Click [Change Password]"       -ForegroundColor Yellow
+		Write-Host "[>] 5 - Close Browser"                -ForegroundColor Yellow
+		# Ask if done
+		if((Read-Host "Press [ENTER] when done") -ne ''){Return}
+    }
+    
     ## BloodHound
     # Write Cmdlets to file
     $File = "$Folder\BH_Cmdlets.ps1"
     Write-Host "[+] Writing Cmdlets to $File"     -ForegroundColor Green
     $Cmdlets | Out-File -FilePath $file
-    # Open BloodHound Interface
-    Write-Host "[+] Opening BloodHound Interface" -ForegroundColor Green
-    iex "$BHPath" -ea Stop
-    # Bolt URL to clipboard
-    Write-Host "[+] Setting Clipboard: $BoltURL"  -ForegroundColor Green
-    Set-clipboard "$BoltURL"
-    # Show Instructions
-    Write-Host "[>] 1- Paste Clipboard in URL Database field" -ForegroundColor Yellow
-    Write-Host "[>] 2- Enter DB Username: neo4j"        -ForegroundColor Yellow
-    Write-Host "[>] 3- Enter New DB Password"           -ForegroundColor Yellow
-    Write-Host "[>] 4- Click [login]"                   -ForegroundColor Yellow
-    Write-Host "[+] Done. Great Job. Enjoy it..."       -ForegroundColor Green   
+        
+    if(!$quiet){
+        # Open BloodHound Interface
+        Write-Host "[+] Opening BloodHound Interface" -ForegroundColor Green
+        iex "$BHPath" -ea Stop
+        # Bolt URL to clipboard
+        Write-Host "[+] Setting Clipboard: $BoltURL"  -ForegroundColor Green
+        Set-clipboard "$BoltURL"
+        # Show Instructions
+        Write-Host "[>] 1- Paste Clipboard in URL Database field" -ForegroundColor Yellow
+        Write-Host "[>] 2- Enter DB Username: neo4j"        -ForegroundColor Yellow
+        Write-Host "[>] 3- Enter New DB Password"           -ForegroundColor Yellow
+        Write-Host "[>] 4- Click [login]"                   -ForegroundColor Yellow
+
+    }
     ## Done
+    Write-Host "[+] Done. Great Job. Enjoy it..."       -ForegroundColor Green  
+    
     }
 #End
 
