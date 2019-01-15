@@ -42,7 +42,7 @@
 .EXAMPLE
    Install-BloodHound -quiet neo4j2019
    Switch to install without user interaction with the specified password
-   Defauts to neo4j2019
+   Defaults to neo4j2019
 #>
 Function Install-BloodHound{
     [CmdletBinding()]
