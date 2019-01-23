@@ -1,0 +1,209 @@
+{
+    "queries": [
+        {
+            "name": "All Shortest Path - Owned to HighValue",
+            "queryList": [
+                {
+                    "final": true,
+                    "query":
+                        "MATCH p=allShortestPaths((O {owned: True})-[r:{}*1..]->(H {highvalue: True})) RETURN p",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "All Shortest Path - Owned to HighValue - Exclude Blacklist",
+            "queryList": [
+                {
+                    "final": true,
+                    "query":
+                        "MATCH p=allShortestPaths((O {owned: True})-[r:{}*1..]->(H {highvalue: True})) WHERE NONE(x IN NODES(p) WHERE x:Blacklist) RETURN p",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "Owned - View All",
+            "queryList": [
+                {
+                    "final": true,
+                    "query":
+                        "MATCH (x {owned: True}) RETURN x",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "Owned - Clear All",
+            "queryList": [
+                {
+                    "final": true,
+                    "query":
+                        "MATCH (x {owned: True}) SET x.owned=False",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "HighValue - View All",
+            "queryList": [
+                {
+                    "final": true,
+                    "query":
+                        "MATCH (x {highvalue: True}) RETURN x",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "HighValue - Clear All",
+            "queryList": [
+                {
+                    "final": true,
+                    "query":
+                        "MATCH (x {highvalue: True}) SET x.highvalue=False",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "Blacklist - View All",
+            "queryList": [
+                {
+                    "final": true,
+                    "query":
+                        "MATCH (x:Blacklist) RETURN x",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "Blacklist - Add User",
+            "queryList": [
+                {
+                    "final": false,
+                    "query":
+                        "MATCH (x:User) RETURN x.name ORDER BY x.name",
+                    "props": {},
+                    "allowCollapse": true
+                },
+                {
+                    "final": true,
+                    "query": "MATCH (x:User) WHERE x.name={result} SET x:Blacklist",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "Blacklist - Add Group",
+            "queryList": [
+                {
+                    "final": false,
+                    "query":
+                        "MATCH (x:Group) RETURN x.name ORDER BY x.name",
+                    "props": {},
+                    "allowCollapse": true
+                },
+                {
+                    "final": true,
+                    "query": "MATCH (x:Group) WHERE x.name={result} SET x:Blacklist",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "Blacklist - Add Computer",
+            "queryList": [
+                {
+                    "final": false,
+                    "query":
+                        "MATCH (x:Computer) RETURN x.name ORDER BY x.name",
+                    "props": {},
+                    "allowCollapse": true
+                },
+                {
+                    "final": true,
+                    "query": "MATCH (x:Computer) WHERE x.name={result} SET x:Blacklist",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "Blacklist - Remove User",
+            "queryList": [
+                {
+                    "final": false,
+                    "query":
+                        "MATCH (x:User:Blacklist) RETURN x.name ORDER BY x.name",
+                    "props": {},
+                    "allowCollapse": true
+                },
+                {
+                    "final": true,
+                    "query": "MATCH (x:User) WHERE x.name={result} REMOVE x:Blacklist",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "Blacklist - Remove Group",
+            "queryList": [
+                {
+                    "final": false,
+                    "query":
+                        "MATCH (x:Group:Blacklist) RETURN x.name ORDER BY x.name",
+                    "props": {},
+                    "allowCollapse": true
+                },
+                {
+                    "final": true,
+                    "query": "MATCH (x:Group) WHERE x.name={result} REMOVE x:Blacklist",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "Blacklist - Remove Computer",
+            "queryList": [
+                {
+                    "final": false,
+                    "query":
+                        "MATCH (x:Computer:Blacklist) RETURN x.name ORDER BY x.name",
+                    "props": {},
+                    "allowCollapse": true
+                },
+                {
+                    "final": true,
+                    "query": "MATCH (x:Computer) WHERE x.name={result} REMOVE x:Blacklist",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": "Blacklist - Clear All",
+            "queryList": [
+                {
+                    "final": true,
+                    "query":
+                        "MATCH (x:Blacklist) REMOVE x:Blacklist",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        }
+    ]
+}
+
