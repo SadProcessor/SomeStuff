@@ -13,12 +13,36 @@
             ]
         },
         {
+            "name": "Shortest Path - Owned to HighValue",
+            "queryList": [
+                {
+                    "final": true,
+                    "query":
+                        "MATCH p=shortestPath((O {owned: True})-[r:{}*1..]->(H {highvalue: True})) RETURN p",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
             "name": "All Shortest Path - Owned to HighValue - Exclude Blacklist",
             "queryList": [
                 {
                     "final": true,
                     "query":
                         "MATCH p=allShortestPaths((O {owned: True})-[r:{}*1..]->(H {highvalue: True})) WHERE NONE(x IN NODES(p) WHERE x:Blacklist) RETURN p",
+                    "props": {},
+                    "allowCollapse": true
+                }
+            ]
+        },
+        {
+            "name": " Shortest Path - Owned to HighValue - Exclude Blacklist",
+            "queryList": [
+                {
+                    "final": true,
+                    "query":
+                        "MATCH p=shortestPath((O {owned: True})-[r:{}*1..]->(H {highvalue: True})) WHERE NONE(x IN NODES(p) WHERE x:Blacklist) RETURN p",
                     "props": {},
                     "allowCollapse": true
                 }
