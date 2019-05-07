@@ -804,5 +804,7 @@ function Get-ATTCKTactic{
         }}
 #####End
 
+##LOAD
+if(-Not$ATTCK.Knowledge.count){Invoke-ATTCKnowledge -sync -verbose}
 ################################################
 ############################################ EOF
