@@ -1,8 +1,8 @@
-﻿################################## ATTCKnowledge
-<# 
+################################## ATTCKnowledge
+<#
 # SRC
 $Ent='https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json'
-#ToDO
+#StillToDoWhenIHaveSomeTime
 $Pre='https://raw.githubusercontent.com/mitre/cti/master/pre-attack/pre-attack.json'
 $Mob='https://raw.githubusercontent.com/mitre/cti/master/mobile-attack/mobile-attack.json'
 #>
@@ -21,7 +21,7 @@ $Banner = @('
    ##### Knowledge
 
    Powered by Mitre
-  @SadProcessor 2018
+  @SadProcessor 2019
 ')
 
 ## Knowledge Obj
@@ -29,7 +29,24 @@ if(-Not$ATTCK.Technique){$ATTCK = New-Object PSCustomObject -Property @{
     Technique=@()
     Group=@()
     Software=@()
+    Tactic=@()
     }}
+
+# Group Class
+class ATTCKTactic{
+    [string]$Name
+    [string]$Description
+    [string[]]$Type
+    [string]$ID
+    [string]$Wiki
+    [PScustomObject]$Reference
+    [datetime]$Created
+    [datetime]$Modified
+    [string[]]$Contributor
+    [string]$STIX
+    }
+Update-TypeData -TypeName ATTCKTactic -DefaultDisplayPropertySet ID,Name,Description -Force
+
 
 ## Technique Class
 class ATTCKTechnique{
@@ -54,7 +71,7 @@ class ATTCKTechnique{
     [string[]]$Contributor
     [string]$STIX
     }
-Update-TypeData -TypeName ATTCKTechnique -DefaultDisplayPropertySet Name,Tactic,Description -Force
+Update-TypeData -TypeName ATTCKTechnique -DefaultDisplayPropertySet ID,Name,Tactic,Description,Mitigation -Force
 
 # Software Class
 class ATTCKSoftware{    
@@ -70,7 +87,7 @@ class ATTCKSoftware{
     [string[]]$Contributor
     [String]$STIX
     }
-Update-TypeData -TypeName ATTCKSoftware -DefaultDisplayPropertySet Name,Type,Description -Force
+Update-TypeData -TypeName ATTCKSoftware -DefaultDisplayPropertySet ID,Name,Type,Description -Force
 
 # Group Class
 class ATTCKGroup{
@@ -85,7 +102,7 @@ class ATTCKGroup{
     [string[]]$Contributor
     [string]$STIX
     }
-Update-TypeData -TypeName ATTCKGroup -DefaultDisplayPropertySet Name,Alias,Description -Force
+Update-TypeData -TypeName ATTCKGroup -DefaultDisplayPropertySet ID,Name,Alias,Description -Force
 
 
 ################################################
@@ -161,6 +178,7 @@ function DynP{
     Open ATT&CK in browser
 #>
 function Invoke-ATTCKnowledge{
+    [Alias('ATTCKnowledge')]
     [CmdletBinding(DefaultParametersetName='View',HelpURI='https://attack.mitre.org/wiki/Main_Page')]
     Param(
         [Parameter(Mandatory=0,ParameterSetName='View')][Switch]$Online,
@@ -185,6 +203,20 @@ function Invoke-ATTCKnowledge{
             Write-Warning '[!] No Object Found'
             Return
             }
+        # Prep Software Obj Collection
+        Write-Verbose "[+] Formating Tactic Objects..."
+        $ATTCK.Tactic = $Json.Objects | where type -eq x-mitre-tactic |%{
+            [ATTCKTactic]@{    
+                Name        = $_.name
+                Description = $_.description
+                Type        = $_.type 
+                ID          =($_.external_references |? source_name -eq mitre-attack).external_id
+                Wiki        =($_.external_references |? source_name -eq mitre-attack).url
+                Reference   = $_.external_references |? source_name -ne mitre-attack
+                Created     = $_.created
+                Modified    = $_.modified
+                STIX        = $_.id
+                }} 
         # Prep Technique Obj Collection
         Write-Verbose "[+] Formating Technique Objects..."
         #Write-Verbose "[+] Matching Mitigation to Technique..."
@@ -580,7 +612,7 @@ function Get-ATTCKGroup{
     Add -reference -online -> open reference in Browser 
 .EXAMPLE
     ATTCKSoftware -Filter malware
-    List all softwareof type malware (vs. tool)
+    List all software of type malware (vs. tool)
 .EXAMPLE
     ATTCKSoftware -Description worm | Select Name,Alias,Description
     Return software matching 'worm' in description
@@ -670,7 +702,107 @@ function Get-ATTCKSoftware{
         }}
 #####End
 
+################################################
+######################################### Tactic
 
+<#
+.Synopsis
+   ATT&CK Tactics
+.DESCRIPTION
+   ## Action
+   - List all Tactics
+   - View Tactic(s) by name
+   - View Tactic(s) by ID
+   - Open ATT&Ck wiki in browser
+
+   ## Syntax 
+   ATTCK-Tactic [-Online]
+   ATTCK-Tactic [-name] [-Value] <tab> [-Online] [-Reference]
+   ATTCK-Tactic -ID [-Value] <tab> [-Online] [-Reference]
+
+   See examples for details 
+   PS> Help ATTCK-Tactic -Example
+.EXAMPLE
+    ATTCK-Tactic
+    List all available Groups
+    Use |Where or |select to filter objects
+    Object Properties tab-complete after pipeline :)
+.EXAMPLE
+    ATTCK-Tactic impact
+    View Tactic by name
+    Accepts multiple coma separated values
+    Tactic names tab-complete
+    Add -Online -> open wiki in browser
+    Add -Reference -> view reference
+    Add -Reference -Online -> open reference in Browser
+.EXAMPLE
+    ATTCK-Tactic -ID TA0001 | Select Description
+    View Group by Mitre ID
+    Accepts multiple coma separated values
+    Tactic IDs tab-complete
+    Add -Online -> open wiki in browser
+    Add -Reference -> view reference
+    Add -Reference -Online -> open reference in Browser
+#>
+function Get-ATTCKTactic{
+    [CmdletBinding(DefaultParameterSetName='Name',HelpURI='https://attack.mitre.org/tactics/enterprise/')]
+    [OutputType([ATTCKTactic])]
+    [Alias('ATTCK-Tactic')]
+    Param(
+        # Select by Name
+        [Parameter(Mandatory=0,ParameterSetName='Name')][Switch]$Name,
+        # Select by ID
+        [Parameter(Mandatory=1,ParameterSetName='ID')][Switch]$ID,
+        # View Reference
+        [Parameter(Mandatory=0,ParameterSetName='ID')]
+        [Parameter(Mandatory=0,ParameterSetName='Name')][Switch]$Reference,
+        # View Online
+        [Parameter(Mandatory=0,ParameterSetName='ID')]
+        [Parameter(Mandatory=0,ParameterSetName='Name')][Switch]$Online
+        )
+    DynamicParam{
+        ## DynDico
+        $Dico = New-Object Management.Automation.RuntimeDefinedParameterDictionary
+        # If ID
+        if($PSCmdlet.ParameterSetName -eq 'ID'){
+            $DynID = DynP -Name 'Value' -Type 'String[]' -Mandat 1 -Pos 0 -VSet @($Attck.Tactic.ID | sort -Unique)
+            $Dico.Add('Value',$DynID)
+            }
+        # If Name
+        if($PSCmdlet.ParameterSetName -eq 'Name'){
+            $DynName = DynP -Name 'Value' -Type 'String[]' -Mandat 0 -Pos 0 -VSet @($attck.Tactic.name | sort -unique)
+            $Dico.Add('Value',$DynName)            
+            }
+        ## Return Dico
+        Return $Dico
+        }
+    Process{
+        ## Get Groups
+        $Result = $Attck.Tactic 
+        # Select by ID
+        if($PSCmdlet.ParameterSetName -eq 'ID'){
+                $Result = @()
+                $DynID.value|%{$Result += $Attck.Tactic  | ? ID -eq $_}
+                $Url = $Result.Wiki
+                if($Reference){$Result=$Result.Tactic ;$Url = $Result.Url}
+                }
+        # Or - Select by Name
+        if($PSCmdlet.ParameterSetName -eq 'Name' -AND $DynName.IsSet){
+                $Result = @()
+                $DynName.value|%{$Result += $Attck.Tactic  | ? name -eq $_}
+                $Url = $Result.Wiki
+                if($Reference){$Result=$Result.Reference;$Url = $Result.Url}
+                }
+        ## Output
+        # If Online > Open URL
+        if($Online){
+            if(-Not$DynName.IsSet){$url='https://attack.mitre.org/tactics/enterprise/'}
+            $Url|%{try{Start-Process $_}catch{}}
+            }
+        # Else Return Result
+        else{Return $result}
+        }}
+#####End
 
 ################################################
 ############################################ EOF
