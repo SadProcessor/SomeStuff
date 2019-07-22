@@ -1,0 +1,74 @@
+FunctionName,ParameterSetName,MandatoryParam,OptionalParam
+Empire-Admin,AdminLogin,Login Server User,Port NoSSL
+Empire-Admin,AdminToken,Token,
+Empire-Admin,AdminRestart,Restart ,
+Empire-Admin,AdminShutDown,ShutDown ,
+Empire-Admin,AdminConfig,Config ,
+Empire-Admin,AdminVersion,Version ,
+Empire-Admin,AdminFile,File ,
+Empire-Admin,AdminMap,Map ,
+Empire-Agent,AgentList,List ,
+Empire-Agent,AgentRemove,Remove ,
+Empire-Agent,AgentView,View ,
+Empire-Agent,AgentClearBuffer,ClearBuffer ,
+Empire-Agent,AgentKill,Kill ,
+Empire-Agent,AgentRename,Rename NewName,
+Empire-Agent,AgentResult,Result ,
+Empire-Agent,AgentDeleteResult,DeleteResult ,
+Empire-Agent,AgentExec,Exec Command,
+Empire-Agent,AgentUploadFile,UploadFile FilePath,
+Empire-Agent,AgentListStale,ListStale ,
+Empire-Agent,AgentRemoveStale,RemoveStale ,
+Empire-Agent,AgentSync,Sync ,
+Empire-Agent,AgentTarget,Target ,
+Empire-Cred,CredList,List ,
+Empire-Cred,CredAdd,Add Cred,
+Empire-Event,EventList,List ,
+Empire-Event,EventView,View ,
+Empire-Event,EventMessage,Message,
+Empire-Event,EventType,Type,
+Empire-Exec,ExecCommand,Command ,Blind
+Empire-Listener,ListenerList,List ,
+Empire-Listener,ListenerView,View ,
+Empire-Listener,ListenerKill,Kill ,
+Empire-Listener,ListenerNew,New ,Options
+Empire-Listener,ListenerOption,Option ,ToClip
+Empire-Listener,ListenerSync,Sync ,
+Empire-Module,ModuleList,List ,Lang Cat
+Empire-Module,ModuleView,View ,
+Empire-Module,ModuleExec,Exec ,
+Empire-Module,ModuleSearch,Search Term,Lang Cat
+Empire-Module,ModuleSearchAuth,Search Term Author,Lang Cat
+Empire-Module,ModuleSearchComm,Search Term Comment,Lang Cat
+Empire-Module,ModuleSearchDesc,Search Term Description,Lang Cat
+Empire-Module,ModuleSearchName,Search Term Name,Lang Cat
+Empire-Module,ModuleSync,Sync ,
+Empire-Module,ModuleTarget,Target ,
+Empire-Session,SessionNew,New Server User,Port NoSSL
+Empire-Session,SessionView,View ,
+Empire-Session,SessionSync,Sync ,
+Empire-Session,SessionList,List ,
+Empire-Session,SessionTarget,Target ,
+Empire-Stager,StagerList,List ,
+Empire-Stager,StagerNew,New Type,Options
+Empire-Stager,StagerView,View ,
+Empire-Stager,StagerOption,Option ,ToClip
+Empire-Stager,StagerSync,Sync ,
+Empire-Strike,StrikeView,View,
+Empire-Strike,StrikeX,X,Blind
+Empire-Sync,SyncSession,Session,
+Empire-Sync,SyncModule,Module,
+Empire-Sync,SyncAgent,Agent,
+Empire-Sync,SyncListerner,Listerner,
+Empire-Target,TargetSession,Session ,
+Empire-Target,TargetAgent,Agent ,
+Empire-Target,TargetModule,Module ,
+Empire-Target,TargetView,View ,
+Empire-View,ViewTarget,Target ,
+Empire-View,ViewSession,Session ,
+Empire-View,ViewModule,Module ,
+Empire-View,ViewAgent,Agent,
+Empire-View,ViewListerner,Listerner,
+Empire-View,ViewStrike,Strike ,
+Empire-View,ViewHelp,Help ,
+Empire-View,ViewBanner,Banner ,

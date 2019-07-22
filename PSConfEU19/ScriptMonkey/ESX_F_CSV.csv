@@ -1,0 +1,14 @@
+FunctionName,Alias,Synopsis,Outputype,DefaultPSN,HelpURI
+Empire-Admin,Admin,Empire Admin Actions,,AdminConfig,https://github.com/EmpireProject/Empire/wiki
+Empire-Agent,Agent,Interact with Agents,,AgentView,https://github.com/EmpireProject/Empire/wiki
+Empire-Cred,Cred,Empire Creds DB,,CredList,https://github.com/EmpireProject/Empire/wiki
+Empire-Event,Event,Get empire Events,,EventView,https://github.com/EmpireProject/Empire/wiki
+Empire-Exec,Exec,Execute Commands,,ExecCommand,https://github.com/EmpireProject/Empire/wiki
+Empire-Listener,Listener,Interact with Listeners,,ListenerView,https://github.com/EmpireProject/Empire/wiki
+Empire-Module,Mod,Interact with Modules,,ModuleView,https://github.com/EmpireProject/Empire/wiki
+Empire-Session,Session,Interact with Session,,SessionView,https://github.com/EmpireProject/Empire/wiki
+Empire-Stager,Stager,Interact with Stagers,,StagerView,https://github.com/EmpireProject/Empire/wiki
+Empire-Strike,Strike,Empire Strike,,StrikeView,https://github.com/EmpireProject/Empire/wiki
+Empire-Sync,Sync,Sync Session Objects,,SyncSession,https://github.com/EmpireProject/Empire/wiki
+Empire-Target,Target,Set Target,,TargetAgent,https://github.com/EmpireProject/Empire/wiki
+Empire-View,View,View Empire Objects,,ViewHelp,https://github.com/EmpireProject/Empire/wiki
