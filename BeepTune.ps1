@@ -1,4 +1,4 @@
-﻿   <#
+<#
 .Synopsis
    BeepTune
 .DESCRIPTION
