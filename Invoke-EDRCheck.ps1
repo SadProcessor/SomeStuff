@@ -28,6 +28,8 @@ function Invoke-EDRCheck{
         edrsensor.sys          {Obj @{Driver=$_;EDR= 'BitDefender SRL'          }}
         CarbonBlackK.sys       {Obj @{Driver=$_;EDR= 'Carbon Black'             }}
         parity.sys             {Obj @{Driver=$_;ERD= 'Carbon Black'             }}
+        cbk7.sys               {Obj @{Driver=$_;EDR= 'Carbon Black'             }}
+        cbstream.sys           {Obj @{Driver=$_;ERD= 'Carbon Black'             }}
         csacentr.sys           {Obj @{Driver=$_;EDR= 'Cisco'                    }}
         csaenh.sys             {Obj @{Driver=$_;EDR= 'Cisco'                    }}
         csareg.sys             {Obj @{Driver=$_;EDR= 'Cisco'                    }}
