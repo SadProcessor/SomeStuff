@@ -47,6 +47,8 @@ function Invoke-EDRCheck{
         CyOptics.sys           {Obj @{Driver=$_;EDR= 'Cylance Inc.'             }}
         CyProtectDrv32.sys     {Obj @{Driver=$_;EDR= 'Cylance Inc.'             }}
         CyProtectDrv64.sys.sys {Obj @{Driver=$_;EDR= 'Cylance Inc.'             }}
+        CyOpticsDrv.sys        {Obj @{Driver=$_;EDR= 'Cylance Inc.'             }}
+        CyProtectDrv64.sys     {Obj @{Driver=$_;EDR= 'Cylance Inc.'             }}        
         groundling32.sys       {Obj @{Driver=$_;EDR= 'Dell Secureworks'         }}
         groundling64.sys       {Obj @{Driver=$_;EDR= 'Dell Secureworks'         }}
         esensor.sys            {Obj @{Driver=$_;EDR= 'Endgame'                  }}
