@@ -100,6 +100,7 @@ function Invoke-EDRCheck{
         pgpfs.sys              {Obj @{Driver=$_;EDR= 'Symantec'                 }}
         fencry.sys             {Obj @{Driver=$_;EDR= 'Symantec'                 }}
         symrg.sys              {Obj @{Driver=$_;EDR= 'Symantec'                 }}
+        egfilterk.sys          {Obj @{Driver=$_;EDR= 'Tehtris'                  }}
         ndgdmk.sys             {Obj @{Driver=$_;EDR= 'Verdasys Inc'             }}
         ssfmonm.sys            {Obj @{Driver=$_;EDR= 'Webroot Software'         }}
         }#########################################################################
